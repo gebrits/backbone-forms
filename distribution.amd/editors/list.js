@@ -68,9 +68,12 @@ define(['jquery', 'underscore', 'backbone', 'backbone-forms'], function($, _, Ba
       //Store a reference to the list (item container)
       this.$list = $el.is('[data-items]') ? $el : $el.find('[data-items]');
 
+      if (value instanceof Backbone.Collection) {
+        value = value.toJSON();
+      }
       //Add existing items
       if (value.length) {
-        _.each(value, function(itemValue) {
+        _.each(value, function addItem(itemValue) {
           self.addItem(itemValue);
         });
       }
@@ -80,6 +83,8 @@ define(['jquery', 'underscore', 'backbone', 'backbone-forms'], function($, _, Ba
         if (!this.Editor.isAsync) this.addItem();
       }
 
+      this._checkMaxCardinalityReached($el);
+
       this.setElement($el);
       this.$el.attr('id', this.id);
       this.$el.attr('name', this.key);
@@ -87,6 +92,18 @@ define(['jquery', 'underscore', 'backbone', 'backbone-forms'], function($, _, Ba
       if (this.hasFocus) this.trigger('blur', this);
 
       return this;
+    },
+
+    /**
+     * If number of items exceeds the maxListLength value set on the schema,
+     * hide any 'add' button in the passed in $element
+     *
+     * @param {jQuery selector} [$el] Where to look for the add button
+     */
+    _checkMaxCardinalityReached: function($el) {
+      if (this.schema.maxListLength && this.items.length >= this.schema.maxListLength) {
+        $el.find('button[data-action="add"]').hide();
+      }
     },
 
     /**
@@ -111,6 +128,8 @@ define(['jquery', 'underscore', 'backbone', 'backbone-forms'], function($, _, Ba
       var _addItem = function() {
         self.items.push(item);
         self.$list.append(item.el);
+
+        self._checkMaxCardinalityReached(self.$el);
 
         item.editor.on('all', function(event) {
           if (event === 'change') return;
@@ -190,6 +209,11 @@ define(['jquery', 'underscore', 'backbone', 'backbone-forms'], function($, _, Ba
       }
 
       if (!this.items.length && !this.Editor.isAsync) this.addItem();
+
+      // show the "add" button in case the max-length has not been reached
+      if (this.schema.maxListLength && this.items.length < this.schema.maxListLength) {
+        this.$el.find('button[data-action="add"]').show();
+      }
     },
 
     getValue: function() {

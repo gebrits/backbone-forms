@@ -106,8 +106,8 @@ builder(baseDir)
 
 
 //Modal adapters
-builder(baseDir)
-  .load('lib/backbone.bootstrap-modal/src/backbone.bootstrap-modal.js')
-  .save('distribution/adapters/backbone.bootstrap-modal.js')
-  .uglify()
-  .save('distribution/adapters/backbone.bootstrap-modal.min.js');
+//builder(baseDir)
+//  .load('lib/backbone.bootstrap-modal/src/backbone.bootstrap-modal.js')
+//  .save('distribution/adapters/backbone.bootstrap-modal.js')
+//  .uglify()
+// .save('distribution/adapters/backbone.bootstrap-modal.min.js');

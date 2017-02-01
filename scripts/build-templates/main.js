@@ -6,24 +6,32 @@
  * License and more information at:
  * http://github.com/powmedia/backbone-forms
  */
-;(function(root) {
+;
+(function (root) {
 
   //DEPENDENCIES
   //CommonJS
   if (typeof exports !== 'undefined' && typeof require !== 'undefined') {
-    var _ = root._ || require('underscore'),
-        Backbone = root.Backbone || require('backbone');
+    // var _ = root._ || require('underscore'),
+    //     Backbone = root.Backbone || require('backbone');
+
+    //GJ: webpack bundles requires even when they're lazy. 
+    //We guarantee _ + Backbone are set
+    var _ = root._,
+      Backbone = root.Backbone;
+
   }
 
   //Browser
   else {
     var _ = root._,
-        Backbone = root.Backbone;
+      Backbone = root.Backbone;
   }
 
 
   //SOURCE
-  {{body}}
+  {
+    { body } }
 
 
   //Metadata
