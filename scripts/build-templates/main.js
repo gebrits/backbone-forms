@@ -30,8 +30,7 @@
 
 
   //SOURCE
-  {
-    { body } }
+  {{body}}
 
 
   //Metadata
