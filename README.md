@@ -1,5 +1,10 @@
 #backbone-forms
 
+##GJ: Submodule install
+
+http://stackoverflow.com/a/32192949/209591
+
+
 A flexible, customisable form framework for Backbone.js applications.
 
 - Simple schema definition to auto-generate forms
